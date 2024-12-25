@@ -1,0 +1,33 @@
+<div>
+  <h2>Questions</h2>
+  <div class="question-container">
+    <div class="question-card" *ngFor="let question of questions">
+      <div class="question-header">
+        <span class="edit-icon" (click)="editQuestion(question)">✏️</span>
+      </div>
+      <h3>{{ question.question_text }}</h3>
+      <p><strong>Correct Answer:</strong> {{ question.correct_answer }}</p>
+      <p><strong>DB Sample ID:</strong> {{ question.dbsample_id }}</p>
+      <button (click)="deleteQuestion(question.question_id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3>{{ editingQuestion ? 'Edit' : 'Add New' }} Question</h3>
+  <form [formGroup]="questionForm" (ngSubmit)="editingQuestion ? updateQuestion() : addQuestion()">
+    <div>
+      <label for="question_text">Question Text:</label>
+      <input id="question_text" formControlName="question_text">
+    </div>
+    <div>
+      <label for="correct_answer">Correct Answer:</label>
+      <input id="correct_answer" formControlName="correct_answer">
+    </div>
+    <div>
+      <label for="dbsample_id">DB Sample ID:</label>
+      <input type="number" id="dbsample_id" formControlName="dbsample_id">
+    </div>
+    <button type="submit">{{ editingQuestion ? 'Update' : 'Add' }} Question</button>
+  </form>
+</div>
